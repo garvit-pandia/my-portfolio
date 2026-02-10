@@ -55,10 +55,11 @@ export default function Hero() {
                         Contact Me
                     </a>
                     <a
-                        href="https://drive.google.com/file/d/placeholder/view"
+                        href="/resume.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn-outline"
+                        download="Garvit_Pandia_Resume.pdf"
                     >
                         My Resume
                     </a>
