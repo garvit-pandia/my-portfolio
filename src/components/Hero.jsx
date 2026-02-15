@@ -6,10 +6,11 @@ export default function Hero() {
         <section className="hero" id="home">
             <div className="hero-bg" />
 
-            {/* Floating shapes */}
-            <div className="hero-shape hero-shape--cube" />
-            <div className="hero-shape hero-shape--sphere" />
-            <div className="hero-shape hero-shape--ring" />
+            {/* Ambient glowing orbs */}
+            <div className="hero-orb hero-orb--1" />
+            <div className="hero-orb hero-orb--2" />
+            <div className="hero-orb hero-orb--3" />
+            <div className="hero-orb hero-orb--4" />
 
             <motion.div
                 className="hero-content"

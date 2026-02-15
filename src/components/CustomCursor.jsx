@@ -1,33 +1,33 @@
 import { useEffect, useRef } from 'react'
 
+const TRAIL_COUNT = 10
+
 export default function CustomCursor() {
     const dotsRef = useRef([])
     const mouse = useRef({ x: -100, y: -100 })
-    const positions = useRef(Array.from({ length: 7 }, () => ({ x: -100, y: -100 })))
+    const positions = useRef(Array.from({ length: TRAIL_COUNT }, () => ({ x: -100, y: -100 })))
 
     useEffect(() => {
-        // Skip on touch/mobile
         if ('ontouchstart' in window) return
 
         const handleMove = (e) => {
             mouse.current = { x: e.clientX, y: e.clientY }
         }
-        window.addEventListener('mousemove', handleMove)
+        window.addEventListener('mousemove', handleMove, { passive: true })
 
         let raf
         const animate = () => {
-            let prev = mouse.current
+            let { x: lx, y: ly } = mouse.current
             positions.current.forEach((pos, i) => {
-                const ease = 0.35 - i * 0.03
-                pos.x += (prev.x - pos.x) * ease
-                pos.y += (prev.y - pos.y) * ease
+                // Higher base easing + gentler falloff = smoother trail
+                const ease = 0.45 - i * 0.025
+                pos.x += (lx - pos.x) * ease
+                pos.y += (ly - pos.y) * ease
                 if (dotsRef.current[i]) {
-                    const size = 14 - i * 1.5
-                    dotsRef.current[i].style.transform = `translate(${pos.x - size / 2}px, ${pos.y - size / 2}px)`
-                    dotsRef.current[i].style.width = `${size}px`
-                    dotsRef.current[i].style.height = `${size}px`
+                    dotsRef.current[i].style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`
                 }
-                prev = pos
+                lx = pos.x
+                ly = pos.y
             })
             raf = requestAnimationFrame(animate)
         }
@@ -41,26 +41,27 @@ export default function CustomCursor() {
 
     if (typeof window !== 'undefined' && 'ontouchstart' in window) return null
 
-    const colors = [
-        'rgba(100,243,255,0.8)',
-        'rgba(120,220,255,0.65)',
-        'rgba(140,200,255,0.5)',
-        'rgba(155,135,255,0.4)',
-        'rgba(170,120,255,0.3)',
-        'rgba(200,100,255,0.2)',
-        'rgba(255,0,255,0.12)',
-    ]
-
     return (
         <>
-            {colors.map((c, i) => (
-                <div
-                    key={i}
-                    ref={(el) => (dotsRef.current[i] = el)}
-                    className="cursor-dot"
-                    style={{ background: c }}
-                />
-            ))}
+            {Array.from({ length: TRAIL_COUNT }, (_, i) => {
+                const size = 16 - i * 1.2
+                const opacity = 0.8 - i * 0.07
+                return (
+                    <div
+                        key={i}
+                        ref={(el) => (dotsRef.current[i] = el)}
+                        className="cursor-dot"
+                        style={{
+                            width: `${size}px`,
+                            height: `${size}px`,
+                            background: `rgba(99, 102, 241, ${opacity})`,
+                            boxShadow: i === 0 ? '0 0 12px rgba(99, 102, 241, 0.6)' : 'none',
+                            marginLeft: `${-size / 2}px`,
+                            marginTop: `${-size / 2}px`,
+                        }}
+                    />
+                )
+            })}
         </>
     )
 }

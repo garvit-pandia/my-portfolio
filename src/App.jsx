@@ -10,6 +10,7 @@ import Experience from './components/Experience'
 import Certificates from './components/Certificates'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import AuroraBackground from './components/AuroraBackground'
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -25,6 +26,7 @@ function App() {
       <CustomCursor />
       {!loading && (
         <>
+          <AuroraBackground />
           <Navbar />
           <Hero />
           <About />

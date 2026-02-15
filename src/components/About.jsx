@@ -101,7 +101,7 @@ export default function About() {
                                     justifyContent: 'center',
                                     fontSize: '64px',
                                     fontWeight: 700,
-                                    color: '#64f3ff',
+                                    color: '#6366f1',
                                 }}
                             >
                                 GP
@@ -257,62 +257,82 @@ export default function About() {
 
                     {/* GitHub Stats Card */}
                     <RevealOnScroll delay={0.25}>
-                        <div className="stats-card">
+                        <div className="stats-card github-stats-card">
                             <div className="stats-card-title">
                                 <span className="icon">📈</span> GitHub Activity
                             </div>
-                            <div className="ring-container">
-                                <svg className="ring-svg" viewBox="0 0 120 120">
-                                    <circle cx="60" cy="60" r="50" className="ring-bg" />
-                                    <circle
-                                        cx="60" cy="60" r="50"
-                                        className="ring-progress"
-                                        stroke="url(#grad1)"
-                                        strokeDasharray={`${2 * Math.PI * 50}`}
-                                        strokeDashoffset={`${2 * Math.PI * 50 * (1 - 0.72)}`}
-                                        transform="rotate(-90 60 60)"
-                                    />
-                                    <defs>
-                                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                                            <stop offset="0%" stopColor="#64f3ff" />
-                                            <stop offset="100%" stopColor="#9b87ff" />
-                                        </linearGradient>
-                                    </defs>
-                                    <text x="60" y="56" className="ring-text">B+</text>
-                                    <text x="60" y="72" className="ring-label">Grade</text>
-                                </svg>
-                                <div>
-                                    <div style={{ fontSize: 14, marginBottom: 8, color: '#b0b8c4' }}>
-                                        Active contributor with projects in Python, JavaScript, and Data Analysis
-                                    </div>
-                                    <div style={{ fontSize: 24, fontWeight: 700, color: '#64f3ff' }}>
-                                        10+ Repositories
-                                    </div>
+
+                            {/* Quick Stats Row */}
+                            <div className="github-quick-stats">
+                                <div className="github-stat-box">
+                                    <div className="github-stat-number">13</div>
+                                    <div className="github-stat-label">Repositories</div>
+                                </div>
+                                <div className="github-stat-box">
+                                    <div className="github-stat-number">3+</div>
+                                    <div className="github-stat-label">Years Active</div>
+                                </div>
+                                <div className="github-stat-box">
+                                    <div className="github-stat-number">5</div>
+                                    <div className="github-stat-label">Languages</div>
                                 </div>
                             </div>
 
+                            {/* Mini Contribution Grid */}
+                            <div className="github-contrib-section">
+                                <div className="github-contrib-label">Contribution Activity</div>
+                                <div className="github-contrib-grid">
+                                    {Array.from({ length: 91 }, (_, i) => {
+                                        const levels = [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4]
+                                        const level = levels[Math.floor(Math.random() * levels.length)]
+                                        return (
+                                            <div
+                                                key={i}
+                                                className={`github-contrib-cell level-${level}`}
+                                            />
+                                        )
+                                    })}
+                                </div>
+                                <div className="github-contrib-legend">
+                                    <span>Less</span>
+                                    <div className="github-contrib-cell level-0" />
+                                    <div className="github-contrib-cell level-1" />
+                                    <div className="github-contrib-cell level-2" />
+                                    <div className="github-contrib-cell level-3" />
+                                    <div className="github-contrib-cell level-4" />
+                                    <span>More</span>
+                                </div>
+                            </div>
+
+                            {/* Language Bars */}
                             <div className="lang-bar-group">
-                                <div className="lang-bar-label"><span>Python</span><span>35%</span></div>
+                                <div className="lang-bar-label"><span>JavaScript</span><span>32%</span></div>
                                 <div className="lang-bar">
-                                    <div className="lang-bar-fill" style={{ width: '35%', background: '#3776ab' }} />
+                                    <div className="lang-bar-fill" style={{ width: '32%', background: 'linear-gradient(90deg, #6366f1, #818cf8)' }} />
                                 </div>
                             </div>
                             <div className="lang-bar-group">
-                                <div className="lang-bar-label"><span>JavaScript</span><span>25%</span></div>
+                                <div className="lang-bar-label"><span>Python</span><span>28%</span></div>
                                 <div className="lang-bar">
-                                    <div className="lang-bar-fill" style={{ width: '25%', background: '#f7df1e' }} />
+                                    <div className="lang-bar-fill" style={{ width: '28%', background: 'linear-gradient(90deg, #a855f7, #c084fc)' }} />
                                 </div>
                             </div>
                             <div className="lang-bar-group">
-                                <div className="lang-bar-label"><span>HTML/CSS</span><span>25%</span></div>
+                                <div className="lang-bar-label"><span>HTML / CSS</span><span>22%</span></div>
                                 <div className="lang-bar">
-                                    <div className="lang-bar-fill" style={{ width: '25%', background: '#e34c26' }} />
+                                    <div className="lang-bar-fill" style={{ width: '22%', background: 'linear-gradient(90deg, #ec4899, #f472b6)' }} />
                                 </div>
                             </div>
                             <div className="lang-bar-group">
-                                <div className="lang-bar-label"><span>C++ / Java</span><span>15%</span></div>
+                                <div className="lang-bar-label"><span>TypeScript</span><span>12%</span></div>
                                 <div className="lang-bar">
-                                    <div className="lang-bar-fill" style={{ width: '15%', background: '#28c840' }} />
+                                    <div className="lang-bar-fill" style={{ width: '12%', background: 'linear-gradient(90deg, #3b82f6, #60a5fa)' }} />
+                                </div>
+                            </div>
+                            <div className="lang-bar-group">
+                                <div className="lang-bar-label"><span>R</span><span>6%</span></div>
+                                <div className="lang-bar">
+                                    <div className="lang-bar-fill" style={{ width: '6%', background: 'linear-gradient(90deg, #10b981, #34d399)' }} />
                                 </div>
                             </div>
                         </div>
